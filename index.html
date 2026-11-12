@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Starry World</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0b0914;
+    --purple-dark: #4b2e9e;
+    --purple: #7c5cff;
+    --purple-light: #a78bfa;
+    --text: #f2f2f2;
+    --gray: #b0b0c0;
+    --card-bg: #141122;
+    --border: #362a5c;
+  }
+  
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  #stars {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  /* Шапка */
+  header {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1.5rem;
+  }
+  
+  .star-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: var(--purple-light);
+    animation: bob 6s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--purple-light), var(--purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .sub {
+    font-size: 1.1rem;
+    color: var(--gray);
+    max-width: 500px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Меню */
+  .navbar {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 0.4rem;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(124, 92, 255, 0.15);
+  }
+  
+  .navbar a {
+    padding: 0.6rem 1.2rem;
+    text-decoration: none;
+    color: var(--gray);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 16px;
+    transition: 0.2s;
+  }
+  
+  .navbar a:hover {
+    color: var(--text);
+    background: var(--purple-dark);
+    box-shadow: 0 0 10px rgba(124, 92, 255, 0.3);
+  }
+
+  /* Секции */
+  section {
+    padding: 4rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--purple-light);
+  }
+
+  /* Блок О проекте */
+  .about-box {
+    background: linear-gradient(180deg, rgba(43, 30, 80, 0.4) 0%, var(--card-bg) 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 25px rgba(124, 92, 255, 0.08);
+  }
+  
+  .about-box p {
+    font-size: 1rem;
+    color: var(--gray);
+    margin-bottom: 1rem;
+  }
+  .about-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Карточки */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  
+  .card {
+    background: linear-gradient(180deg, rgba(43, 30, 80, 0.4) 0%, var(--card-bg) 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: 0.2s;
+  }
+  
+  .card:hover {
+    border-color: var(--purple);
+    box-shadow: 0 8px 20px rgba(124, 92, 255, 0.15), 0 0 15px rgba(124, 92, 255, 0.1);
+    transform: translateY(-4px);
+  }
+  
+  .card .icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card h3 {
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+  
+  .card p {
+    color: var(--gray);
+    font-size: 0.9rem;
+  }
+
+  /* Кнопка */
+  .cta {
+    text-align: center;
+    padding: 4rem 1.5rem;
+  }
+  
+  .cta p {
+    color: var(--gray);
+    margin-bottom: 2rem;
+  }
+  
+  .btn-main {
+    display: inline-block;
+    padding: 0.9rem 2.8rem;
+    background: linear-gradient(135deg, var(--purple), var(--purple-dark));
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    border-radius: 20px;
+    transition: 0.2s;
+    box-shadow: 0 4px 15px rgba(124, 92, 255, 0.3), 0 0 20px rgba(124, 92, 255, 0.2);
+  }
+  
+  .btn-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(124, 92, 255, 0.5), 0 0 30px rgba(124, 92, 255, 0.3);
+  }
+
+  /* Подвал */
+  footer {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    border-top: 1px solid var(--border);
+    color: var(--gray);
+    font-size: 0.9rem;
+  }
+  
+  .socials {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .socials a {
+    color: var(--gray);
+    transition: 0.2s;
+    display: flex;
+    padding: 0.5rem;
+    border-radius: 50%;
+  }
+  
+  .socials a:hover {
+    color: var(--purple-light);
+    background: rgba(124, 92, 255, 0.1);
+    box-shadow: 0 0 15px rgba(124, 92, 255, 0.3);
+  }
+  
+  .socials svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+  }
+
+  @media (max-width: 600px) {
+    .navbar {
+      flex-direction: column;
+      width: 100%;
+      max-width: 250px;
+    }
+    .navbar a {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="stars"></canvas>
+
+<header>
+  <div class="star-icon">✦</div>
+  <h1>The Starry World</h1>
+  <p class="sub">Мультяшный креатор персонажей для ПК и телефонов.</p>
+  <div class="navbar">
+    <a href="#about" class="smooth">О проекте</a>
+    <a href="#features" class="smooth">Функции</a>
+    <a href="https://claemet.itch.io/the-starry-world" target="_blank" rel="noopener">Скачать</a>
+  </div>
+</header>
+
+<section id="about">
+  <div class="about-box">
+    <h2>О проекте</h2>
+    <p><strong>The Starry World</strong> — мультяшная чиби игра, созданная с нуля компанией <strong>CLAEMET</strong>.</p>
+    <p>Этот проект — настоящая находка для любителей творчества и уютной космической эстетики. Мы вложили душу в каждую деталь, чтобы ты мог создать героя, который будет отражать именно твой стиль и настроение.</p>
+    <p>Игра создана полностью с нуля: от первых набросков вещей до финальной версии. Присоединяйся к нашему звёздному путешествию и создай своего уникального персонажа!</p>
+  </div>
+</section>
+
+<section id="features">
+  <h2>Функции</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="icon">🧑‍🚀</div>
+      <h3>Уникальные персонажи</h3>
+      <p>Создавай простых и милых героев, собирая их из множества деталей.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🎨</div>
+      <h3>Огромный выбор цветов</h3>
+      <p>Настраивай оттенки каждой детали, чтобы герой был именно таким, как ты хочешь.</p>
+    </div>
+    <div class="card">
+      <div class="icon">👕</div>
+      <h3>Более 5000 вещей</h3>
+      <p>Огромный гардероб причёсок, одежды и аксессуаров на любой вкус.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🖱️</div>
+      <h3>Свободное перемещение</h3>
+      <p>Двигай и комбинируй элементы так, как пожелаешь — полная свобода творчества.</p>
+    </div>
+    <div class="card">
+      <div class="icon">📁</div>
+      <h3>Экспорт по слоям</h3>
+      <p>Экспортируй персонажа по слоям (PNG) для дальнейшего редактирования.</p>
+    </div>
+    <div class="card">
+      <div class="icon">🎮</div>
+      <h3>Интересные мини-игры</h3>
+      <p>Играй в увлекательные мини-игры прямо внутри приложения.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta" id="download">
+  <h2>Готов создать своего персонажа?</h2>
+  <p>Открой игру на itch.io — это бесплатно.</p>
+  <a href="https://claemet.itch.io/the-starry-world" class="btn-main" target="_blank" rel="noopener">Начать создавать</a>
+</section>
+
+<footer>
+  <div class="socials">
+    <a href="https://t.me/TheStarryWorld" target="_blank" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.26-1.91.178-.184 3.247-2.977 3.307-3.23.005-.02.012-.05-.016-.075-.028-.025-.07-.015-.095-.007-.041.012-1.896 1.204-5.358 3.558-.507.347-.964.516-1.371.507-.453-.01-1.323-.256-1.972-.466-.797-.258-1.428-.394-1.377-.831.027-.228.348-.461.963-.7 3.767-1.639 6.277-2.72 7.528-3.245 3.575-1.483 4.316-1.74 4.8-1.749z"/></svg></a>
+    <a href="https://discord.gg/my3UVrcQ9u" target="_blank" aria-label="Discord"><svg viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg></a>
+    <a href="https://www.tiktok.com/@thestarryworldgame" target="_blank" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+  </div>
+  <div>© 2026 The Starry World</div>
+</footer>
+
+<script>
+  // Плавная прокрутка
+  document.querySelectorAll('.smooth').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Переход по прямой ссылке с якорем
+  window.addEventListener('load', () => {
+    if (window.location.hash) {
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 100);
+      }
+    }
+  });
+
+  // Фон со звездами
+  const canvas = document.getElementById('stars');
+  const ctx = canvas.getContext('2d');
+  let w, h;
+  let stars = [];
+  let comets = [];
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Star {
+    constructor() {
+      this.reset();
+      this.y = Math.random() * h;
+    }
+    reset() {
+      this.x = Math.random() * w;
+      this.y = -10;
+      this.size = Math.random() * 1.5 + 0.5;
+      this.speed = Math.random() * 0.3 + 0.1;
+      this.opacity = Math.random();
+      this.twinkle = Math.random() * 0.01 + 0.005;
+      this.color = Math.random() > 0.8 ? '#a78bfa' : '#fff';
+    }
+    update() {
+      this.y += this.speed;
+      this.opacity += this.twinkle;
+      if (this.opacity > 1 || this.opacity < 0.2) this.twinkle *= -1;
+      if (this.y > h) this.reset();
+    }
+    draw() {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, 7);
+      ctx.fillStyle = this.color;
+      ctx.globalAlpha = this.opacity;
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  class Comet {
+    constructor() {
+      this.reset();
+    }
+    reset() {
+      this.x = Math.random() * w + 200;
+      this.y = Math.random() * -200;
+      this.len = Math.random() * 80 + 40;
+      this.speed = Math.random() * 4 + 2;
+      this.opacity = 1;
+      this.active = Math.random() > 0.99;
+      if (this.active) {
+        this.x = Math.random() * w;
+        this.y = -50;
+      }
+    }
+    update() {
+      if (!this.active) {
+        if (Math.random() > 0.99) {
+          this.active = true;
+          this.x = Math.random() * w;
+          this.y = -50;
+          this.opacity = 1;
+        }
+        return;
+      }
+      this.x -= this.speed;
+      this.y += this.speed;
+      this.opacity -= 0.01;
+      if (this.opacity <= 0 || this.y > h || this.x < -100) this.active = false;
+    }
+    draw() {
+      if (!this.active) return;
+      const grad = ctx.createLinearGradient(this.x, this.y, this.x + this.len, this.y - this.len);
+      grad.addColorStop(0, `rgba(167,139,250,${this.opacity})`);
+      grad.addColorStop(1, 'transparent');
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(this.x, this.y);
+      ctx.lineTo(this.x + this.len, this.y - this.len);
+      ctx.stroke();
+    }
+  }
+
+  for (let i = 0; i < 120; i++) stars.push(new Star());
+  for (let i = 0; i < 2; i++) comets.push(new Comet());
+
+  function animate() {
+    ctx.fillStyle = '#0b0914';
+    ctx.fillRect(0, 0, w, h);
+
+    stars.forEach(s => { s.update(); s.draw(); });
+    comets.forEach(c => { c.update(); c.draw(); });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+</script>
+</body>
+</html>
