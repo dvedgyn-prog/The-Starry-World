@@ -68,12 +68,26 @@
     display: flex; gap: 0.5rem; background: rgba(20, 17, 34, 0.8);
     border: 1px solid var(--border); padding: 0.4rem; border-radius: 20px;
     box-shadow: 0 0 20px rgba(124, 92, 255, 0.15); backdrop-filter: blur(10px);
+    align-items: center; flex-wrap: wrap; justify-content: center;
   }
   .navbar a {
     padding: 0.6rem 1.2rem; text-decoration: none; color: var(--gray);
     font-weight: 600; font-size: 0.9rem; border-radius: 16px; transition: 0.2s;
   }
   .navbar a:hover { color: var(--text); background: var(--purple-dark); box-shadow: 0 0 10px rgba(124, 92, 255, 0.3); }
+
+  /* Переключатель языков */
+  .lang-switch {
+    display: flex; gap: 0.2rem; background: var(--card-bg);
+    border: 1px solid var(--border); border-radius: 16px; padding: 0.2rem; margin-left: 0.5rem;
+  }
+  .lang-btn {
+    background: transparent; border: none; color: var(--gray); font-weight: 700;
+    font-size: 0.85rem; padding: 0.4rem 0.8rem; border-radius: 12px; cursor: pointer;
+    transition: 0.2s; font-family: inherit;
+  }
+  .lang-btn.active { background: var(--purple); color: #fff; }
+  .lang-btn:hover:not(.active) { color: #fff; }
 
   /* Секции */
   section {
@@ -145,8 +159,8 @@
   .socials svg { width: 24px; height: 24px; fill: currentColor; }
 
   @media (max-width: 600px) {
-    .navbar { flex-direction: column; width: 100%; max-width: 250px; }
-    .navbar a { width: 100%; text-align: center; }
+    .navbar { flex-direction: column; width: 100%; max-width: 280px; }
+    .navbar a, .lang-switch { width: 100%; text-align: center; justify-content: center; margin-left: 0; }
     .about-box { padding: 2rem 1.5rem; }
   }
 </style>
@@ -163,63 +177,69 @@
 <header>
   <div class="star-icon">✦</div>
   <h1>The Starry World</h1>
-  <p class="sub">Мультяшный креатор персонажей для ПК и телефонов.</p>
+  <p class="sub" data-lang="header_sub">Мультяшный креатор персонажей для ПК и телефонов.</p>
   <div class="navbar">
-    <a href="#about" class="smooth">О проекте</a>
-    <a href="#features" class="smooth">Функции</a>
-    <a href="#download" class="smooth">Скачать</a>
+    <a href="#about" class="smooth" data-lang="nav_about">О проекте</a>
+    <a href="#features" class="smooth" data-lang="nav_features">Функции</a>
+    <a href="#download" class="smooth" data-lang="nav_download">Скачать</a>
+    
+    <!-- Кнопки переключения языка -->
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
   </div>
 </header>
 
 <section id="about" class="fade-up">
   <div class="about-box">
-    <h2>О проекте</h2>
-    <p><strong>The Starry World</strong> — мультяшная чиби игра, созданная с нуля компанией <strong>CLAEMET</strong>.</p>
-    <p>Этот проект — настоящая находка для любителей творчества и уютной космической эстетики. Мы вложили душу в каждую деталь, чтобы ты мог создать героя, который будет отражать именно твой стиль и настроение.</p>
-    <p>Игра создана полностью с нуля: от первых набросков персонажей до финальной анимации. Присоединяйся к нашему звёздному путешествию и создай своего уникального персонажа!</p>
+    <h2 data-lang="about_title">О проекте</h2>
+    <p><strong data-lang="about_p1_1">The Starry World</strong> <span data-lang="about_p1_2">— мультяшная чиби игра, созданная с нуля компанией</span> <strong>CLAEMET</strong>.</p>
+    <p data-lang="about_p2">Этот проект — настоящая находка для любителей творчества и уютной космической эстетики. Мы вложили душу в каждую деталь, чтобы ты мог создать героя, который будет отражать именно твой стиль и настроение.</p>
+    <p data-lang="about_p3">Игра создана полностью с нуля: от первых набросков персонажей до финальной анимации. Присоединяйся к нашему звёздному путешествию и создай своего уникального персонажа!</p>
   </div>
 </section>
 
 <section id="features" class="fade-up">
-  <h2>Функции</h2>
+  <h2 data-lang="features_title">Функции</h2>
   <div class="cards">
     <div class="card">
       <div class="icon">🧑‍🚀</div>
-      <h3>Уникальные персонажи</h3>
-      <p>Создавай простых и милых героев, собирая их из множества деталей.</p>
+      <h3 data-lang="f1_title">Уникальные персонажи</h3>
+      <p data-lang="f1_desc">Создавай простых и милых героев, собирая их из множества деталей.</p>
     </div>
     <div class="card">
       <div class="icon">🎨</div>
-      <h3>Огромный выбор цветов</h3>
-      <p>Настраивай оттенки каждой детали, чтобы герой был именно таким, как ты хочешь.</p>
+      <h3 data-lang="f2_title">Огромный выбор цветов</h3>
+      <p data-lang="f2_desc">Настраивай оттенки каждой детали, чтобы герой был именно таким, как ты хочешь.</p>
     </div>
     <div class="card">
       <div class="icon">👕</div>
-      <h3>Более 5000 вещей</h3>
-      <p>Огромный гардероб причёсок, одежды и аксессуаров на любой вкус.</p>
+      <h3 data-lang="f3_title">Более 5000 вещей</h3>
+      <p data-lang="f3_desc">Огромный гардероб причёсок, одежды и аксессуаров на любой вкус.</p>
     </div>
     <div class="card">
       <div class="icon">🖱️</div>
-      <h3>Свободное перемещение</h3>
-      <p>Двигай и комбинируй элементы так, как пожелаешь — полная свобода творчества.</p>
+      <h3 data-lang="f4_title">Свободное перемещение</h3>
+      <p data-lang="f4_desc">Двигай и комбинируй элементы так, как пожелаешь — полная свобода творчества.</p>
     </div>
     <div class="card">
       <div class="icon">📁</div>
-      <h3>Экспорт по слоям</h3>
-      <p>Экспортируй персонажа по слоям (PSD/PNG) для дальнейшего редактирования.</p>
+      <h3 data-lang="f5_title">Экспорт по слоям</h3>
+      <p data-lang="f5_desc">Экспортируй персонажа по слоям (PSD/PNG) для дальнейшего редактирования.</p>
     </div>
     <div class="card">
       <div class="icon">🎮</div>
-      <h3>Интересные мини-игры</h3>
-      <p>Играй в увлекательные мини-игры прямо внутри приложения.</p>
+      <h3 data-lang="f6_title">Интересные мини-игры</h3>
+      <p data-lang="f6_desc">Играй в увлекательные мини-игры прямо внутри приложения.</p>
     </div>
   </div>
 </section>
 
 <section class="cta fade-up" id="download">
-  <h2>Готов создать своего персонажа?</h2>
-  <p>Открой игру на itch.io — это бесплатно.</p>
-  <a href="https://claemet.itch.io/the-starry-world" class="btn-main" target="_blank" rel="noopener">Начать создавать</a>
+  <h2 data-lang="cta_title">Готов создать своего персонажа?</h2>
+  <p data-lang="cta_desc">Открой игру на itch.io — это бесплатно.</p>
+  <a href="https://claemet.itch.io/the-starry-world" class="btn-main" target="_blank" rel="noopener" data-lang="cta_btn">Начать создавать</a>
 </section>
 
 <footer>
@@ -232,6 +252,98 @@
 </footer>
 
 <script>
+  // --- ЛОГИКА ПЕРЕВОДА ---
+  const translations = {
+    ru: {
+      header_sub: "Мультяшный креатор персонажей для ПК и телефонов.",
+      nav_about: "О проекте",
+      nav_features: "Функции",
+      nav_download: "Скачать",
+      about_title: "О проекте",
+      about_p1_1: "The Starry World",
+      about_p1_2: "— мультяшная чиби игра, созданная с нуля компанией",
+      about_p2: "Этот проект — настоящая находка для любителей творчества и уютной космической эстетики. Мы вложили душу в каждую деталь, чтобы ты мог создать героя, который будет отражать именно твой стиль и настроение.",
+      about_p3: "Игра создана полностью с нуля: от первых набросков персонажей до финальной анимации. Присоединяйся к нашему звёздному путешествию и создай своего уникального персонажа!",
+      features_title: "Функции",
+      f1_title: "Уникальные персонажи",
+      f1_desc: "Создавай простых и милых героев, собирая их из множества деталей.",
+      f2_title: "Огромный выбор цветов",
+      f2_desc: "Настраивай оттенки каждой детали, чтобы герой был именно таким, как ты хочешь.",
+      f3_title: "Более 5000 вещей",
+      f3_desc: "Огромный гардероб причёсок, одежды и аксессуаров на любой вкус.",
+      f4_title: "Свободное перемещение",
+      f4_desc: "Двигай и комбинируй элементы так, как пожелаешь — полная свобода творчества.",
+      f5_title: "Экспорт по слоям",
+      f5_desc: "Экспортируй персонажа по слоям (PSD/PNG) для дальнейшего редактирования.",
+      f6_title: "Интересные мини-игры",
+      f6_desc: "Играй в увлекательные мини-игры прямо внутри приложения.",
+      cta_title: "Готов создать своего персонажа?",
+      cta_desc: "Открой игру на itch.io — это бесплатно.",
+      cta_btn: "Начать создавать"
+    },
+    en: {
+      header_sub: "A cartoon character creator for PC and mobile.",
+      nav_about: "About",
+      nav_features: "Features",
+      nav_download: "Download",
+      about_title: "About the Project",
+      about_p1_1: "The Starry World",
+      about_p1_2: "is a cartoon chibi game created from scratch by",
+      about_p2: "This project is a true find for fans of creativity and cozy cosmic aesthetics. We put our soul into every detail so you can create a character that reflects your unique style and mood.",
+      about_p3: "The game is built completely from scratch: from the first character sketches to the final animation. Join our starry journey and create your unique character!",
+      features_title: "Features",
+      f1_title: "Unique Characters",
+      f1_desc: "Create simple and cute heroes by assembling them from a variety of parts.",
+      f2_title: "Huge Color Palette",
+      f2_desc: "Adjust the shades of every detail so the hero is exactly how you want them.",
+      f3_title: "Over 5000 Items",
+      f3_desc: "A massive wardrobe of hairstyles, clothes, and accessories for every taste.",
+      f4_title: "Free Placement",
+      f4_desc: "Move and combine elements however you like — complete creative freedom.",
+      f5_title: "Layered Export",
+      f5_desc: "Export your character in layers (PSD/PNG) for further editing.",
+      f6_title: "Fun Mini-games",
+      f6_desc: "Play exciting mini-games right inside the app.",
+      cta_title: "Ready to create your character?",
+      cta_desc: "Open the game on itch.io — it's free.",
+      cta_btn: "Start Creating"
+    }
+  };
+
+  function setLang(lang) {
+    // Меняем текст на всех элементах с атрибутом data-lang
+    document.querySelectorAll('[data-lang]').forEach(el => {
+      const key = el.getAttribute('data-lang');
+      if (translations[lang] && translations[lang][key]) {
+        el.innerHTML = translations[lang][key];
+      }
+    });
+
+    // Меняем атрибут lang у тега <html> (полезно для SEO)
+    document.documentElement.lang = lang;
+
+    // Обновляем активную кнопку
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.remove('active');
+      if (btn.innerText.toLowerCase() === lang) {
+        btn.classList.add('active');
+      }
+    });
+
+    // Сохраняем выбор в памяти браузера
+    localStorage.setItem('site_lang', lang);
+  }
+
+  // При загрузке страницы проверяем сохраненный язык
+  window.addEventListener('DOMContentLoaded', () => {
+    const savedLang = localStorage.getItem('site_lang');
+    if (savedLang) {
+      setLang(savedLang);
+    }
+  });
+
+  // --- ОСТАЛЬНЫЕ СКРИПТЫ ---
+
   // Плавная прокрутка
   document.querySelectorAll('.smooth').forEach(link => {
     link.addEventListener('click', e => {
